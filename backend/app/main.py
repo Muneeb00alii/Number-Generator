@@ -2,6 +2,7 @@ from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 import random
+from datetime import datetime
 
 from .database import get_db
 from .models import NumberEntry
@@ -26,6 +27,7 @@ def read_root():
 def generate_number(db: Session = Depends(get_db)):
     # Generate random number
     random_num = random.randint(1, 1000)
+    print(f"[LOG] Generated number: {random_num} at {datetime.now()}")
     
     # Create database entry
     new_entry = NumberEntry(number=random_num)
